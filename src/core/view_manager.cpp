@@ -1636,7 +1636,7 @@ void ViewManager::transition_multicast_group(
     next_view->multicast_group = std::make_unique<MulticastGroup>(
             next_view->members, next_view->members[next_view->my_rank],
             next_view->gmsSST, std::move(*curr_view->multicast_group), num_subgroups,
-            new_subgroup_settings,
+            new_subgroup_settings, 
             next_view->failed);
 
     curr_view->multicast_group.reset();
