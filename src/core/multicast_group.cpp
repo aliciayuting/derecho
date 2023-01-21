@@ -1134,12 +1134,12 @@ void MulticastGroup::register_predicates() {
     dbg_default_trace("multicast group finished register_prdicates.");
 }
 
-void MulticastGroup::set_load_info_entry(uint32_t load) {
+void MulticastGroup::set_load_info_entry(uint64_t load) {
     dbg_default_trace("~~~ MulticastGroup::set_load_info_entry");
     gmssst::set(this->sst.get()->load_info[this->member_index], load);
 }
 
-uint32_t MulticastGroup::get_load_info(node_id_t node_id){
+uint64_t MulticastGroup::get_load_info(node_id_t node_id){
     dbg_default_trace("~~~ MulticastGroup::get_load_info" );
     uint32_t sst_index = node_id_to_sst_index[node_id];
     return this->sst.get()->load_info[sst_index];

@@ -181,7 +181,7 @@ public:
      * For each member  each int represents
      * the loading information(queue length) of the member.
      */
-    SSTField<uint32_t> load_info;
+    SSTField<uint64_t> load_info;
     SSTField<uint64_t> cache_models_info; 
 
     /**

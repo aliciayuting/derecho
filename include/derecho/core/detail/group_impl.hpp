@@ -486,13 +486,13 @@ void Group<ReplicatedTypes...>::receive_objects(const std::set<std::pair<subgrou
 }
 
 template <typename... ReplicatedTypes>
-void Group<ReplicatedTypes...>::set_my_load_info(uint32_t load) {
+void Group<ReplicatedTypes...>::set_my_load_info(uint64_t load) {
     SharedLockedReference<View> curr_view = view_manager.get_current_view();
     curr_view.get().multicast_group->set_load_info_entry(load);
 }
 
 template <typename... ReplicatedTypes>
-uint32_t Group<ReplicatedTypes...>::get_load_info(node_id_t node_id) {
+uint64_t Group<ReplicatedTypes...>::get_load_info(node_id_t node_id) {
     SharedLockedReference<View> curr_view = view_manager.get_current_view();
     return curr_view.get().multicast_group->get_load_info(node_id);
 }

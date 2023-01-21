@@ -611,12 +611,12 @@ public:
      * load information to disseminate this to all nodes in the group
      * @param load      the updated load value to set in SST.load_info of this node
      */
-    void set_load_info_entry(uint32_t load);
+    void set_load_info_entry(uint64_t load);
 
     /** Getter of load_info for a specific node
      * @param node_id   the node, for which to get its load info
      */
-    uint32_t get_load_info(node_id_t node_id);
+    uint64_t get_load_info(node_id_t node_id);
 
     /** Set the local models in cache information in SST cache_modelsfield for this node's member_index.
      * @param   cache_models     an encoded uint64_t value, where each bit represent if model exists in cache

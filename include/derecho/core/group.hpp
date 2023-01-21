@@ -431,11 +431,11 @@ public:
     /** Set the load of this member to the load_info column in SST.
      * @param load   the updated load value to set in SST.load_info of this node
      */
-    void set_my_load_info(uint32_t load);
+    void set_my_load_info(uint64_t load);
     /** Get the load_info of a specific node in the group.
      * @param node_id   the node, for which to get its load info
      */
-    uint32_t get_load_info(node_id_t node_id);
+    uint64_t get_load_info(node_id_t node_id);
 
     /** Set the local models in cache information in SST cache_models field for this node's member_index.
      * @param cache_models  an encoded uint64_t value, where each bit represent if model exists in cache
