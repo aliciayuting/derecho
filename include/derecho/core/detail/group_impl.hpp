@@ -546,6 +546,11 @@ std::vector<uint32_t> Group<ReplicatedTypes...>::get_my_subgroup_indexes() {
 }
 
 template <typename... ReplicatedTypes>
+std::tuple<subgroup_type_id_t, uint32_t, int32_t> Group<ReplicatedTypes...>::get_node_shard_index(node_id_t node_id){
+    return view_manager.get_node_shard_index(node_id);
+}
+
+template <typename... ReplicatedTypes>
 int32_t Group<ReplicatedTypes...>::get_my_rank() {
     return view_manager.get_my_rank();
 }

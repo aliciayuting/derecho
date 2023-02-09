@@ -2544,6 +2544,21 @@ std::vector<uint32_t> ViewManager::get_my_subgroup_indexes(subgroup_type_id_t su
     return my_indexes;
 }
 
+std::tuple<subgroup_type_id_t, uint32_t, int32_t> ViewManager::get_node_shard_index(node_id_t node_id) {  
+    int32_t node_rank = (int32_t)curr_view->node_id_to_rank.at(node_id);
+    shared_lock_t read_lock(view_mutex);
+    for (auto& subgroup: curr_view->subgroup_ids_by_type_id){
+        for(auto& subgroup_id: subgroup.second){
+            for(size_t shard_index = 0; shard_index < curr_view->subgroup_shard_views.at(subgroup_id).size(); ++shard_index){
+                if(curr_view->subgroup_shard_views.at(subgroup_id).at(shard_index).my_rank == node_rank){
+                    return std::make_tuple(subgroup.first, subgroup_id, shard_index);
+                }
+            }
+        }
+    }
+    return std::make_tuple(0, 0, -1);
+}
+
 bool ViewManager::subgroup_is_persistent(subgroup_id_t subgroup_id) const {
     return subgroup_objects.at(subgroup_id)->is_persistent();
 }
