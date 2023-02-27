@@ -1135,23 +1135,23 @@ void MulticastGroup::register_predicates() {
 }
 
 void MulticastGroup::set_load_info_entry(uint64_t load) {
-    dbg_default_trace("~~~ MulticastGroup::set_load_info_entry");
+    // dbg_default_trace("~~~ MulticastGroup::set_load_info_entry");
     gmssst::set(this->sst.get()->load_info[this->member_index], load);
 }
 
 uint64_t MulticastGroup::get_load_info(node_id_t node_id){
-    dbg_default_trace("~~~ MulticastGroup::get_load_info" );
+    // dbg_default_trace("~~~ MulticastGroup::get_load_info of node({})", node_id );
     uint32_t sst_index = node_id_to_sst_index[node_id];
     return this->sst.get()->load_info[sst_index];
 }
 
 void MulticastGroup::set_cache_models_info_entry(uint64_t cache_models) {
-    dbg_default_trace("~~~ MulticastGroup::set_cache_models_info_entry");
+    // dbg_default_trace("~~~ MulticastGroup::set_cache_models_info_entry");
     gmssst::set(this->sst.get()->cache_models_info[this->member_index], cache_models);
 }
 
 uint64_t MulticastGroup::get_cache_models_info(node_id_t node_id){
-    dbg_default_trace("~~~ MulticastGroup::get_cache_models_info");
+    // dbg_default_trace("~~~ MulticastGroup::get_cache_models_info");
     uint32_t sst_index = node_id_to_sst_index[node_id];
     return this->sst.get()->cache_models_info[sst_index];
 }
