@@ -1907,6 +1907,7 @@ void ViewManager::make_subgroup_maps(const SubgroupInfo& subgroup_info,
                     subgroup_allocations[subgroup_type][subgroup_index]));
         }  //for(subgroup_index)
     }
+     dbg_default_trace("Finished making subgroup maps");
 }
 
 std::tuple<uint32_t, uint32_t, uint32_t> ViewManager::derive_subgroup_settings(View& view,
@@ -2554,7 +2555,8 @@ std::tuple<subgroup_type_id_t, uint32_t, int32_t> ViewManager::get_node_shard_in
         subgroup_index = 0;
         for(auto& subgroup_id: subgroup.second){
             for(size_t shard_index = 0; shard_index < curr_view->subgroup_shard_views.at(subgroup_id).size(); ++shard_index){
-                if(curr_view->subgroup_shard_views.at(subgroup_id).at(shard_index).my_rank == node_rank){
+                auto& shard_members = curr_view->subgroup_shard_views.at(subgroup_id).at(shard_index).members;
+                if(std::find(shard_members.begin(),shard_members.end(),node_rank) != shard_members.end()){
                     return std::make_tuple(subgroup.first, subgroup_index, shard_index);
                 }
             }
