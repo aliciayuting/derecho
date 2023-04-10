@@ -2545,27 +2545,6 @@ std::vector<uint32_t> ViewManager::get_my_subgroup_indexes(subgroup_type_id_t su
     return my_indexes;
 }
 
-std::tuple<subgroup_type_id_t, uint32_t, int32_t> ViewManager::get_node_shard_index(node_id_t node_id) {  
-    int32_t node_rank = (int32_t)curr_view->node_id_to_rank.at(node_id);
-    shared_lock_t read_lock(view_mutex);
-    uint32_t subgroup_index;
-    for (auto& subgroup: curr_view->subgroup_ids_by_type_id){
-        // subgroup_id is the accumulate subgroup_id of this subgroup among all subgroups
-        // subgroup_index is the index of this subgroup among all subgroups of the same type 
-        subgroup_index = 0;
-        for(auto& subgroup_id: subgroup.second){
-            for(size_t shard_index = 0; shard_index < curr_view->subgroup_shard_views.at(subgroup_id).size(); ++shard_index){
-                auto& shard_members = curr_view->subgroup_shard_views.at(subgroup_id).at(shard_index).members;
-                if(std::find(shard_members.begin(),shard_members.end(),node_rank) != shard_members.end()){
-                    return std::make_tuple(subgroup.first, subgroup_index, shard_index);
-                }
-            }
-            subgroup_index ++;
-        }
-    }
-    return std::make_tuple(0, 0, -1);
-}
-
 bool ViewManager::subgroup_is_persistent(subgroup_id_t subgroup_id) const {
     return subgroup_objects.at(subgroup_id)->is_persistent();
 }

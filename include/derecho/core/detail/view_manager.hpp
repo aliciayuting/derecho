@@ -856,13 +856,6 @@ public:
     std::vector<uint32_t> get_my_subgroup_indexes(subgroup_type_id_t subgroup_type);
 
     /**
-     * Return a tuple<subgroup_type_index, subgroup_index, shard_index> 
-     * that the node_id belongs to
-     * if not found, then shard_index = -1
-    */
-    std::tuple<subgroup_type_id_t, uint32_t, int32_t> get_node_shard_index(node_id_t node_id);
-
-    /**
      * Determines whether a subgroup (identified by its ID) uses persistence.
      * Used by RPCManager, which doesn't have direct access to the Replicated
      * Objects represented by subgroups.

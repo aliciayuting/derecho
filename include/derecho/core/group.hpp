@@ -397,14 +397,6 @@ public:
     template <typename SubgroupType>
     std::vector<std::vector<node_id_t>> get_subgroup_members(uint32_t subgroup_index = 0);
 
-    /**
-     * Get the subgroup info of the current view 
-     * @param node_id   the node_id to get its subgroup info 
-     * @return a tuple<subgroup_type_index, subgroup_index, shard_index> ,
-     *  if not found, then shard_index = -1
-    */
-    std::tuple<subgroup_type_id_t, uint32_t, int32_t> get_node_shard_index(node_id_t node_id);
-
     /** @returns the order of this node in the sequence of members of the group */
     std::int32_t get_my_rank();
 
