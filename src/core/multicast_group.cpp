@@ -1102,14 +1102,14 @@ void MulticastGroup::register_predicates() {
         uint64_t cur_us = std::chrono::duration_cast<std::chrono::microseconds>(
                                   std::chrono::high_resolution_clock::now().time_since_epoch())
                                   .count();
-        /** TODO: move this threshold to config, currently set it to every 1sec*/ 
-        if(cur_us - last_send_load_info_timeus < 1000000) {
+        auto interval = 1000000 / getConfUInt32(CONF_INFO_SST_LOAD_INFO_MULTICAST_RATE);
+        if(cur_us - last_send_load_info_timeus < interval) {
             return false;
         }
         last_send_load_info_timeus = cur_us;
         return true;
     };
-    auto update_load_info_sst_trig = [this](DerechoSST& sst) { sst.put(sst.load_info); };
+    auto update_load_info_sst_trig = [this](DerechoSST& sst) {sst.put(sst.load_info); };
     if(!send_load_info_handle.is_valid()) {
         send_load_info_handle = sst->predicates.insert(
                 send_load_info_pred, update_load_info_sst_trig, sst::PredicateType::RECURRENT);
@@ -1119,8 +1119,8 @@ void MulticastGroup::register_predicates() {
         uint64_t cur_us = std::chrono::duration_cast<std::chrono::microseconds>(
                                   std::chrono::high_resolution_clock::now().time_since_epoch())
                                   .count();
-        /** TODO: move this threshold to config, currently set it to every 10sec*/ 
-        if(cur_us - last_send_cache_models_info_timeus < 10000000) {
+        auto interval = 1000000 / getConfUInt32(CONF_INFO_SST_CACHE_INFO_MULTICAST_RATE);
+        if(cur_us - last_send_cache_models_info_timeus < interval) {
             return false;
         }
         last_send_cache_models_info_timeus = cur_us;
