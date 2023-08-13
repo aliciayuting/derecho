@@ -1102,7 +1102,7 @@ void MulticastGroup::register_predicates() {
         uint64_t cur_us = std::chrono::duration_cast<std::chrono::microseconds>(
                                   std::chrono::high_resolution_clock::now().time_since_epoch())
                                   .count();
-        auto interval = 1000000 / getConfUInt32(CONF_INFO_SST_LOAD_INFO_MULTICAST_RATE);
+        auto interval = 60.0 * 1000000 / getConfUInt32(CONF_INFO_SST_LOAD_INFO_MULTICAST_RATE);
         if(cur_us - last_send_load_info_timeus < interval) {
             return false;
         }
@@ -1119,7 +1119,7 @@ void MulticastGroup::register_predicates() {
         uint64_t cur_us = std::chrono::duration_cast<std::chrono::microseconds>(
                                   std::chrono::high_resolution_clock::now().time_since_epoch())
                                   .count();
-        auto interval = 1000000 / getConfUInt32(CONF_INFO_SST_CACHE_INFO_MULTICAST_RATE);
+        auto interval = 60.0 * 1000000 / getConfUInt32(CONF_INFO_SST_CACHE_INFO_MULTICAST_RATE);
         if(cur_us - last_send_cache_models_info_timeus < interval) {
             return false;
         }
